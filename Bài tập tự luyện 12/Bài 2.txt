@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int a, q;
+    cin >> a >> q;
+    //Mảng 2 chiều, chỉ số đầu tiên là thứ tự của mảng con
+    //Chỉ số thứ 2 là thứ tự của phần tử trong mảng con
+    int s[1000][1000];
+    for(int i = 0; i < a; i++){
+        int x;
+        //Số phần tử của 1 mảng con
+        cin >> x;
+        //Nhập vào giá trị của mảng con thứ i của mảng lớn
+        for(int j = 0; j < x; j++){
+            cin >> s[i][j];
+        }
+    }
+    while(q--){
+        int m, n;
+        cin >> m >> n;
+        cout << s[m][n] << endl;
+    }
+}

@@ -1,0 +1,7 @@
+Liệt kê tất cả các hoán vị của một xâu nhập từ bàn phím
+
+Đầu vào: Một xâu s
+ chứa các kí tự không trùng lặp.
+
+Đầu ra: In ra tất cả các xâu hoán vị của xâu s
+, mỗi xâu trên một dòng.

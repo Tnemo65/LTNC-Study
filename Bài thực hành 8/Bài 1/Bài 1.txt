@@ -1,0 +1,23 @@
+void printImage(const Image& img){
+    for(int i = 0; i < img.height; i++){
+        for(int j = 0; j < img.width; j++){
+            cout << img.pixels[i*img.width + j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+Image halve(const Image& img){
+    int newheight = img.height /2+1;
+    int newwidth = img.width /2+1;
+    int *newpixels = new int[newwidth * newheight];
+    int index = 0;
+    for(int i = 0; i < img.height; i += 2){
+        for(int j = 0; j < img.width; j+=2){
+            newpixels[index] =  img.pixels[i * img.width + j];
+                index++;
+        }
+    }
+    Image newImg = {newpixels, newwidth, newheight};
+    return newImg;
+}

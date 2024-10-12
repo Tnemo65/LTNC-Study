@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    int a[100000];
+    vector <int> s;
+    for(int i = 0; i < n; i++){
+        cin >> a[i];
+        s.push_back(a[i]);
+    }
+    sort(s.begin(), s.end());
+    set<vector<int>> ans;
+    for(int i = 0; i < (int)s.size() -2; i++){
+        for(int j = i+1; j < (int)s.size() - 1; j++){
+            for(int k = j+1; k < (int)s.size(); k++){
+                if(s[i] + s[j] + s[k] == 0){
+                    // cout << s[i] << " " << s[j] << " " << s[k] << endl;
+                    vector <int> a = {s[i], s[j], s[k]};
+                    ans.insert(a);
+                }
+            }
+        }
+    }
+    for(auto x : ans){
+        for(int i=0; i< (int) x.size(); i++){
+            cout << x[i] << " ";
+        }
+        cout << endl;
+    }
+
+}

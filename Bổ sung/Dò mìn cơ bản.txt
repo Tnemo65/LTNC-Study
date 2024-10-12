@@ -1,0 +1,125 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+const int MAX_SIZE = 100; // kích thước tối đa của bảng đồ
+const int MAX_MINES = 100; // số lượng mìn tối đa trên bảng đồ
+
+int board[MAX_SIZE][MAX_SIZE]; // ma trận lưu bản đồ
+bool revealed[MAX_SIZE][MAX_SIZE]; // ma trận lưu trạng thái các ô đã mở
+int m, n, K; // kích thước bảng đồ và số lượng mìn
+
+// Sinh ngẫu nhiên các vị trí của các quả mìn trên bản đồ
+void generateMines() {
+    srand(time(NULL)); // khởi tạo seed cho hàm sinh số ngẫu nhiên
+    int count = 0;
+    while (count < K) {
+        int x = rand() % m;
+        int y = rand() % n;
+        if (board[x][y] != -1) {
+            //Có mìn là vị trí có giá trị -1
+            board[x][y] = -1;
+            count++;
+        }
+    }
+}
+
+// In ra bản đồ hiện tại, với các ô đã mở thì in số lượng mìn trong 8 ô xung quanh
+void printBoard(int rows, int cols) {
+   // In bản đồ ra màn hình
+    cout << "  ";
+    for (int i = 0; i < n; i++) {
+        cout << i << " " ;
+    }
+        cout << endl;
+
+    for (int i = 0; i < m; i++) {
+        cout << i << " ";
+        for (int j = 0; j < n; j++) {
+            //Nếu ô đã được mở
+            if (revealed[i][j] == true) {
+                //Nếu ô đó chứa bom
+                if (board[i][j] == -1) {
+                    cout << "* ";
+                }
+                else {
+                    //Nếu đã mở rồi mà không phải bom thì in giá trị ra
+                    cout << board[i][j] << " ";
+                }
+            }
+            //Nếu chưa mở thì in ra .
+            else {
+                cout << ". ";
+            }
+        }
+        //Xong mỗi dòng thì xuống dòng
+        cout << endl;
+    }
+}
+
+int main() {
+    // Nhập kích thước bảng đồ và số lượng mìn
+    cout << "Nhap kich thuoc bang(m, n) va so luong min: ";
+    cin >> m >> n >> K;
+
+    // Khởi tạo bản đồ và ma trận trạng thái
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            //Cho cả bảng về số 0
+            board[i][j] = 0;
+            //Gán chưa mở thì là false
+            revealed[i][j] = false;
+        }
+    }
+
+    // Sinh ngẫu nhiên các vị trí của các quả mìn trên bản đồ
+    generateMines();
+
+    // Bắt đầu trò chơi
+    bool gameOver = false;
+
+    while (!gameOver) {
+        printBoard(m, n);
+
+        // Nhập tọa độ ô cần mở
+        int x, y;
+        cout << "Nhap toa do de mo, cach nhau boi dau cach(bat dau tu toa do 0): ";
+        cin >> x >> y;
+
+        // Kiểm tra tọa độ có hợp lệ không
+        if (x < 0 || x >= m || y < 0 || y >= n) {
+            cout << "Toa do khong hop le, vui long thu lai!" << endl;
+            continue;
+        }
+
+        // Kiểm tra ô đã được mở chưa
+        if (revealed[x][y] == true) {
+            cout << "O da duoc mo, vui long thu lai!" << endl;
+            continue;
+        }
+
+        // Mở ô và kiểm tra có trúng mìn hay không
+        revealed[x][y] = true;
+        if (board[x][y] == -1) {
+            cout << "YOU'RE DEAD!" << endl;
+            printBoard(m, n);
+            gameOver = true;
+        } else {
+            // Kiểm tra thắng cuộc
+            int countUnrevealed = 0;
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (revealed[i][j] == false) {
+                        countUnrevealed++;
+                    }
+                }
+            }
+            if (countUnrevealed == K) {
+                cout << "Chuc mung, ban da thang!!!" << endl;
+                printBoard(m, n);
+                gameOver = true;
+            }
+        }
+    }
+    return 0;
+}

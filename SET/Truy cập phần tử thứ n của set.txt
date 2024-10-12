@@ -1,0 +1,19 @@
+std::string secondOrder(std::vector<int> arr)
+{
+    std::set<int> s(arr.begin(), arr.end());
+    std::set<int>::iterator it = s.begin();
+    std::advance(it, 1);
+    if(s.size() > 1)
+        return std::to_string(*it);
+    else
+        return "NO";
+}
+thì dòng này là sao 
+    std::advance(it, 1);
+
+=>>>>>>>>>>
+Dòng std::advance(it, 1); trong đoạn code được sử dụng để di chuyển con trỏ it đến phần tử tiếp theo trong tập hợp.
+
+Hàm std::advance() trong STL được sử dụng để di chuyển iterator (it) đi n vị trí trong tập hợp. Trong trường hợp này, it là một iterator trỏ đến phần tử đầu tiên của tập hợp s. Bằng cách gọi std::advance(it, 1), iterator it được di chuyển đi một vị trí để trỏ đến phần tử thứ hai trong tập hợp.
+
+Dòng này được sử dụng để truy cập phần tử thứ hai trong tập hợp s. Nếu tập hợp có ít nhất hai phần tử, giá trị của phần tử thứ hai sẽ được chuyển thành chuỗi và trả về. Nếu tập hợp không đủ lớn để truy cập phần tử thứ hai, hoặc tập hợp chỉ chứa một phần tử duy nhất, chuỗi "NO" được trả về.

@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+const int MAXN = 1005;
+
+int n, m;
+int maze[MAXN][MAXN];
+bool visited[MAXN][MAXN];
+
+void dfs(int i, int j) {
+    if (i < 0 || i >= n || j < 0 || j >= m || maze[i][j] == 1 || visited[i][j]) {
+        return;
+    }
+    visited[i][j] = true;
+    if (i == n-1 && j == m-1) {
+        maze[i][j] = 2;  // Đánh dấu ô đích là 2
+        return;
+    }
+    dfs(i+1, j);  // Đi xuống dưới
+    dfs(i, j+1);  // Đi sang phải
+    dfs(i-1, j);  // Đi lên trên
+    dfs(i, j-1);  // Đi sang trái
+    if (maze[i+1][j] == 2 || maze[i][j+1] == 2 || maze[i-1][j] == 2 || maze[i][j-1] == 2) {
+        maze[i][j] = 2;  // Nếu đi đến được ô đích từ ô này, đánh dấu ô này là 2
+    }
+}
+
+int main() {
+    // Nhập dữ liệu
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> maze[i][j];
+            visited[i][j] = false;
+        }
+    }
+    
+    // Tìm đường đi
+    dfs(0, 0);
+    
+    // In kết quả
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cout << maze[i][j] << " ";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}

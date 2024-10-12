@@ -1,0 +1,35 @@
+Đề:
+Cho mỗi dãy số nguyên và một dãy số nguyên arr và một số nguyên dương sum.
+
+Hãy kiểm tra xem dãy số có tồn tại hai số có tổng bằng sum hay không.
+
+Ví dụ:
+
+Với arr = [2,4,-1,9,8], sum = 6 thì checkSum(arr, sum) = true.
+
+Với arr = [2,5,3,8,9], sum = 3 thì checkSum(arr, sum) = false.
+
+Với arr = [4,7,3,5], sum = 6 thì checkSum(arr, sum) = false.
+
+
+
+
+
+bool checkSum(vector<int> arr, int sum){
+    map<int, int> mp;
+    for(auto x: arr){
+        mp[x]++;
+    }
+    for(auto x : arr){
+        //Nếu như tồn tại số cộng với x = sum
+        if(mp[sum - x] >= 1){
+            //TH1: 2 số cộng vào là 2 số khác nhau
+            //TH2: 2 số cộng vào là 2 số trùng nhau
+            // -> Phải có trên 2 số trong map
+            if( x != sum - x || (x == sum - x && mp[x] > 1)){
+                return true;
+            }
+        }
+    }
+    return false;
+}

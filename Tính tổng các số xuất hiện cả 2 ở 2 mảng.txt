@@ -1,0 +1,27 @@
+Đề:Cho hãy dãy số nguyên arr1 và arr2, hãy tính tổng những số xuất hiện trong cả hai dãy, lưu ý là mỗi số chỉ được tính một lần.
+
+Ví dụ:
+
+Với arr1 = [6, 7, 5, 4, 6, 8], arr2 = [2, 5, 7, 5, 3] thì  sumOfCommon(arr1, arr2) = 12.
+
+Với arr1 = [5,6,7], arr2 = [2,3,4] thì sumOfCommon(arr1, arr2) = 0.
+
+
+
+
+
+int sumOfCommon(std::vector<int> arr1, std::vector<int> arr2)
+{
+    map <int, int> ans;
+    int sum = 0;
+    for(auto x : arr1){
+        ans[x] = x;
+    }
+    for(auto x : arr2){
+        if(ans.find(x) != ans.end()){
+            sum += ans.find(x) -> second;
+            ans[x] = 0;
+        }
+    }
+    return sum;
+}

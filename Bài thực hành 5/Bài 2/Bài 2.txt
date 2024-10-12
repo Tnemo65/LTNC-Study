@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void createBinaryString (int n, int m, string s) {
+    if (n == 0 && m == 0) {
+        cout << s << endl;
+    }
+    
+    if (n > 0) {
+        createBinaryString (n - 1, m, s + '0'); // Chọn số 0 tại đây
+    }
+    
+    if (m > 0) {
+        createBinaryString (n, m - 1, s + '1'); // Chọn số 1 tại đây
+    }
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    createBinaryString (n, m, "");
+
+    return 0;
+}

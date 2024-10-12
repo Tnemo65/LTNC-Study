@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Complex {
+    int a; // Phần thực
+    int b; // Phần ảo
+
+    // Hàm khởi tạo mặc định
+    Complex() {
+        a = 0;
+        b = 0;
+    }
+
+    // Hàm khởi tạo nhận vào phần thực và phần ảo
+    Complex(int a, int b) {
+        this->a = a;
+        this->b = b;
+    }
+
+    // Hàm tính và trả về giá trị tuyệt đối của số phức
+    double abs() {
+        return sqrt(a * a + b * b);
+    }
+
+    // Hàm in ra số phức
+    void print() {
+        if (a == 0 && b == 0) {
+            cout << "0" << endl;
+        } else if (a != 0 && b == 0) {
+            cout << a << endl;
+        } else if (a == 0 && b != 0) {
+            if (b == 1) {
+                cout << "i" << endl;
+            } else if (b == -1) {
+                cout << "-i" << endl;
+            } else {
+                cout << b << "i" << endl;
+            }
+        } else {
+            if (b == 1) {
+                cout << a << "+i" << endl;
+            } else if (b == -1) {
+                cout << a << "-i" << endl;
+            } else if (b > 0) {
+                cout << a << "+" << b << "i" << endl;
+            } else {
+                cout << a << b << "i" << endl;
+            }
+        }
+    }
+};
+
+// Hàm tính tổng của hai số phức
+Complex add(Complex x, Complex y) {
+    int real = x.a + y.a;
+    int imag = x.b + y.b;
+    return Complex(real, imag);
+}

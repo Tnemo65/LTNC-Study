@@ -1,0 +1,29 @@
+Đề:Cho một mảng các chuỗi chuỗi chữ thường với các phần tử có thể trùng lặp. Hãy đưa ra khoảng cách lớn nhất giữa hai phần tử giống nhau ở trong dãy đó. 
+
+Nếu không có bất kỳ hai chuỗi nào giống nhau thì trả về 0.
+
+Ví dụ:
+
+Với arr = ["codelearn", "io", "programmer", "codelearn", "programmer"]. thì maximumDifference(arr) = 3.
+Giải thích: hai phần tử giống nhau có khoảng cách lớn nhất trong trường hợp trên là arr[0] và arr[3].
+
+
+
+
+
+
+int maximumDifference(std::vector<std::string> arr)
+{
+    map<string, int> s;
+    int ans = 0;
+    for(int i = 0; i < arr.size(); i++){
+        //chưa xuất hiện
+        if(s.find(arr[i]) == s.end()){
+            s[arr[i]] = i;
+        }
+        else{
+            ans = max(ans, (i - s.find(arr[i]) -> second));
+        }
+    }
+    return ans;
+}

@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int a[1000];
+    for(int i=0;i<n;i++){
+        cin >> a[i];
+    }
+    int maxtime =0;
+    int count = 1;
+    //Tìm số có tần suất xuất hiện lớn nhất
+    for(int i = 0; i < n; i++){
+        //Nếu a[i] = 0 thì bỏ qua
+        //Kết hợp với điều kiện tí mình ràng buộc
+        //Là nếu mình đếm qua rồi thì cho nó = 0
+        if(a[i] !=0){
+            for(int j = i+1; j < n; j++){
+                 if(a[i] == a[j]){
+                    count ++;
+                    //Đếm xong thì cho = 0
+                    //Rồi i tăng lên gặp lại số cũ thì nó bỏ qua
+                    //Vì là = 0 rồi nến bỏ qua
+                    a[j] = 0;
+                }
+             }
+             //Nếu đếm được số lần xuất hiện nhiều hơn max
+             //Thì gán max = số lần xuất hiện
+             if(count > maxtime){
+                maxtime = count;
+             }
+        }
+        count = 1;
+    }
+    cout << n-maxtime << endl;
+
+    return 0;
+}

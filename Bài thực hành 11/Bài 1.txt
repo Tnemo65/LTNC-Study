@@ -1,0 +1,23 @@
+#include<iostream>
+#include<fstream>
+#include<map>
+using namespace std;
+int main(){
+    string path;
+    cin >> path;
+    map <char, int> mp;
+    ifstream file(path);
+    if(file.is_open() && !file.eof()){
+        string s;
+        while(getline(file, s)){
+            for(char x:s){
+                if(x >= 'a' && x <= 'z'){
+                    mp[x] ++;
+                }
+            }
+        }
+        for(auto it : mp){
+            cout << it.first << ": " << it.second << endl;
+        }
+    }
+}

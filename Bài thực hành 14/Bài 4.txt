@@ -1,0 +1,202 @@
+
+    // Hàm khởi tạo xâu rỗng
+    MyString ::MyString(){
+        len = 0;
+        str = new char [1];
+        *str = '\0';
+    }
+
+    // Hàm khởi tạo từ một xâu kiểu c-string
+   MyString :: MyString(const char* s){
+        len = 0;
+        //Tìm size của mảng kí tự
+        while(s[len] != '\0'){
+            len ++;
+        }
+        //CẤP PHÁT ĐỘNG
+        str = new char [len+1];
+        //GÁN
+        for(int i = 0; i <= len; i++){
+            str[i] = s[i];
+        }
+    }
+
+    // Hàm khởi tạo sao chép từ một thực thể (instance) MyString khác
+    MyString :: MyString(const MyString& other ){
+        len = other.len;
+        str = new char [len + 1];
+        for(int i = 0; i <= len; i++){
+            str[i] = other.str[i];
+        }
+    }
+    
+    // Hàm huỷ
+    MyString ::~MyString(){
+        delete[] str;
+    }
+
+    // Toán tử gán
+    MyString MyString:: operator=(const MyString& other ){
+        if(this == &other){
+            return *this;
+        }
+        //Xóa cái cũ đi
+        delete[] str;
+        //Lấy độ dài
+        len = other.len;
+        //Cấp phát động
+        str = new char[len+1];
+        //Gán
+        for (int i = 0; i <= len; i++) {
+            str[i] = other.str[i];
+        }        
+        return *this;
+    }
+    MyString MyString :: operator=(const char* s){
+        delete[] str;
+        len = 0;
+        while(s[len] != '\0'){
+            len++;
+        }
+        str = new char [len + 1];
+        for(int i = 0; i <= len; i++){
+            str[i] = s[i];
+        }
+        return *this;
+    }
+
+    // Toán tử nối xâu rồi gán
+    MyString  MyString :: operator+=(const MyString& other){
+        //Lấy len mới
+        int newLen = len + other.len;
+        //Tạo str mới
+        char* newStr = new char [newLen +1];
+        //gán từ từ => cộng xong
+        for(int i = 0; i < len ; i++){
+            newStr[i] = str[i];
+        }
+        for(int i = len; i <= newLen; i++){
+            newStr[i] = other.str[i-len];
+        }        
+        //làm sạch str
+        delete[] str;
+        //con trỏ str trỏ vào newStr
+        str = newStr;
+        len = newLen;
+        return *this;
+    }
+
+    // Toán tử truy cập đến từng kí tự
+    char& MyString :: operator[] (unsigned int index){
+        return str[index];
+    }
+    const char& MyString :: operator[] (unsigned int index) const{
+        return str[index];
+    }
+
+    // Hàm trả về độ dài của xâu
+    int MyString :: size(){
+        return len;
+    }   
+
+    // Hàm trả về 1 thực thể MyString có các kí tự giống thực thể đang xét nhưng các chữ cái viết hoa
+    MyString MyString :: upper() const{
+        MyString res(*this);
+        for(int i = 0; i < len; i++){
+            if(res.str[i] >= 'a' && res.str[i] <= 'z'){
+                res.str[i] -= 32;
+            }
+        }
+        return res;
+    }
+
+    // Hàm trả về 1 thực thể MyString có các kí tự giống thực thể đang xét nhưng các chữ cái viết thường
+    MyString MyString :: lower() const{
+        MyString res(*this);
+        for(int i = 0; i < len; i++){
+            if(res.str[i] >= 'A' && res.str[i] <= 'Z'){
+                res.str[i] += 32;
+            }
+        }
+        return res;
+    }
+    // Toán tử để in ra màn hình
+    ostream& operator<< (ostream& os, const MyString& s){
+        os << s.str;
+        return os;
+    }
+    // Toán tử nối xâu
+    MyString operator+ (const MyString& s1, const MyString& s2){
+        MyString res;
+        res.len = s1.len + s2.len;
+        res.str = new char[res.len + 1];
+        for(int i = 0; i < s1.len; i++){
+            res.str[i] = s1[i];
+        }
+        for(int i = s1.len; i <= res.len; i++){
+            res.str[i] = s2.str[i - s1.len];
+        }
+        return res;
+    }
+    // Các toán tử so sánh
+    bool operator< (const MyString& s1, const MyString& s2){
+        int i = 0;
+        while (i < s1.len && i < s2.len){
+            if(s1.str[i] > s2.str[i]){
+                return false;
+            }
+            i++;
+        }
+        //Nếu giống nhau hết thì so sánh độ dài
+            return s1.len <= s2.len;
+    }
+    bool operator> (const MyString& s1, const MyString& s2){
+        int i = 0;
+        while (i < s1.len && i < s2.len){
+            if(s1.str[i] <= s2.str[i]){
+                return false;
+            }
+            i++;
+        }
+        return(s1.len >= s2.len);
+    }
+    bool  operator<=(const MyString& s1, const MyString& s2){
+        int i = 0;
+        while(i < s1.len && i < s2.len){
+            if(s1.str[i] <= s2.str[i]){
+                return true;
+            }
+            else{
+                return false;
+            }
+            i++;
+        }
+        return (s1.len <= s2.len);
+    }
+    bool operator>=(const MyString& s1, const MyString& s2){
+        int i = 0;
+        while(i < s1.len && i < s2.len){
+            if(s1.str[i] < s2.str[i]){
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+    bool operator==(const MyString& s1, const MyString& s2){
+        if(s1.len != s2.len){
+            return false;
+        }
+        for(int i = 0; i < s1.len; i++){
+            if(s1.str[i] != s2.str[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool operator!=(const MyString& s1, const MyString& s2){
+        if(s1.len == s2.len){
+            return true;
+        }
+        return false;
+    }

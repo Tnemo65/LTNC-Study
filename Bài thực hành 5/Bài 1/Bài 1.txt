@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+const int MAX = 100;
+int a[MAX];
+void in(int a[MAX], int k, int n){
+    if( k== n){
+        for(int i=0; i<n; i++){
+            cout << a[i];
+        }
+        cout << endl;
+        return;
+    }
+    for(int i = 0; i <= 1; i++){
+        a[k] = i;
+        in(a,k+1, n);
+    }
+}
+int main(){
+    cin >> n;
+    in(a, 0, n);
+}

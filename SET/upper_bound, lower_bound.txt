@@ -1,0 +1,23 @@
+using namespace std;
+vector<int> setFunction(vector<int> arr, int k)
+{
+    int m,n;
+    set<int> s(arr.begin(), arr.end());
+    set <int>:: iterator it;
+
+    it = s.upper_bound(k);
+    if(it != s.end()){
+        m = *it;
+    }    
+    else{
+        m = -1;
+    }
+    it = s.lower_bound(k);
+    if(it != s.end()){
+        n = *it;
+    }
+    else{
+        n = -1;
+    }
+    return {m,n};
+}

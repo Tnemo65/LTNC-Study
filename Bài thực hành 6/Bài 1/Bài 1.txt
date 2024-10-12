@@ -1,0 +1,29 @@
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+int main(){
+    string path;
+    cin >> path;
+    int count = 0;
+    int max = 0;
+    int min = 100000;
+    int sum = 0;
+    int num;
+    ifstream file(path);
+    if(file.is_open()){
+        while(!file.eof() && file >> num){
+            sum += num;
+            count ++;
+            if(num > max) {
+                max = num;
+            }
+            if(num < min){
+                min = num;
+            }
+            //cout << num << " ";
+        }
+    }
+    //cout << endl;
+    cout << count << " " << min << " " << max << " " << sum;
+}

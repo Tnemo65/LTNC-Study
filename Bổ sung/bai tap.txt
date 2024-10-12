@@ -1,0 +1,44 @@
+#include<iostream>
+using namespace std;
+const int MAX = 1000;
+int n, m;
+int meCung[MAX][MAX];
+bool daDi[MAX][MAX];
+void timDuong (int x, int y){
+    //Kiem tra dieu kien
+    //Danh dau da di
+    //Danh dau dich
+    //Tim duong den cuoi cung, neu gap dich thi in sang = 2 con duong do
+    if(x < 0 || x > n || y < 0 || y > m || meCung[x][y] == 1 || daDi[x][y] == true){
+        return;
+    }
+    daDi[x][y] =true;
+    if(x==n-1 && y==m-1){
+        meCung[x][y] = 2;
+        return;
+    }
+    timDuong(x+1, y); //Sang phai
+    timDuong(x, y+1); //Xuong duoi
+    timDuong(x-1, y); //Sang trai
+    timDuong(x, y-1); //Len tren
+    //Tim dich, neu la dich thi return
+    if(meCung[x+1][y] == 2 || meCung[x-1][y] == 2 || meCung[x][y+1] == 2 || meCung[x][y-1] == 2){
+        meCung[x][y] =2;
+    }
+}
+int main(){
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+             cin >> meCung[i][j];
+             daDi[i][j] = false;
+        }
+    }
+    timDuong(0,0);
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cout << meCung[i][i] << " ";
+        }
+        cout << endl;
+    }
+}

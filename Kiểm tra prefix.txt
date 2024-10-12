@@ -1,0 +1,46 @@
+Đề:Đề bài:
+
+Cho một danh bạ điện thoại và danh sách các tên. Ứng với mỗi tên trong danh sách hãy đếm xem tên này là bắt đầu của bao nhiêu tên trong danh bạ điện thoại, hay nói cách khác hãy đếm xem tên này là prefix của bao nhiêu tên trong danh bạ.
+
+Ví dụ:
+
+Với contacts = ["Codelearn", "Codewar"],
+names = ["Code", "Codel", "io"]
+thì countPrefix(contacts, names) = [2,1,0].
+
+
+
+
+
+
+
+
+vector<int> countPrefix(vector<string> contacts, vector<string> names)
+{
+    map <string, int> mp;
+    //Chạy hết tên đầu
+    for(auto x : names){
+        int cnt = 0;
+        //Chạy tên đầy đủ
+        for(auto y : contacts){
+            bool f = 1;
+            //Chạy 1 phần tử tên đầu
+            for(int i = 0; i < x.size(); i++){
+                //Chạy mà có khác thì là không phải prefix
+                //Nếu chạy hết mà f vẫn = 1 thì đúng là prefix
+                if(x[i] != y[i]){
+                    f = 0;
+                }
+            }
+            if(f == 1){
+                cnt ++;
+            }
+        }
+        mp[x] = cnt;
+    }
+    vector<int>result;
+    for(auto x : names){
+        result.push_back(mp[x]);
+    }
+    return result;
+}

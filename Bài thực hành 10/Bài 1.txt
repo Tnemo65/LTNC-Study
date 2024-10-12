@@ -1,0 +1,43 @@
+#include<iomanip>
+#include <iostream>
+using namespace std;
+class Vector{
+    double x_, y_;
+public:
+    Vector(double x, double y){
+        x_ = x;
+        y_ = y;
+    }
+    void print(int precision = 2, bool newline = true){
+        cout << fixed << setprecision(precision)<< "("<< x_ <<","<< " " << y_ <<")" ;
+        if(newline)
+        {
+            cout << endl;
+        }
+    }
+
+    void truncate(double length){
+        x_ -= length;
+        y_ -= length;
+    }
+
+    bool isOrtho(const Vector& v) const {
+        if( v.x_ * x_ + v.y_ *  y_ == 0){
+            return true;
+        }
+        return false;
+    }
+    
+    static float dot(const Vector& v1, const Vector& v2) {
+        float sum = v1.x_ * v2.x_ + v1.y_ *v2.y_;
+        return sum;
+    }
+    static float cross(const Vector& v1, const Vector& v2){
+        float tich = v1.x_ * v2.y_ - v1.y_ * v2.x_;
+        return tich;
+    }
+    friend ostream& operator <<(ostream& os, const Vector& v){
+        os <<"(" <<  v.x_ <<","<< " " << v.y_ << ")";
+        return os;
+    }
+};  

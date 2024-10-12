@@ -1,0 +1,20 @@
+Node* concat(vector<Node*> heads) {
+    Node* newHead = nullptr;
+    Node* currNode = nullptr;
+    
+    for (Node* head : heads) {
+        Node* curr = head;
+        while (curr != nullptr) {
+            if (newHead == nullptr) {
+                newHead = new Node{curr->value, nullptr};
+                currNode = newHead;
+            } else {
+                currNode->next = new Node{curr->value, nullptr};
+                currNode = currNode->next;
+            }
+            curr = curr->next;
+        }
+    }
+    
+    return newHead;
+}

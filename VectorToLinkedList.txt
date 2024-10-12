@@ -1,0 +1,15 @@
+Node* vectorToLinkedList(vector<int> values) {
+    Node* head = nullptr;
+    Node* tail = nullptr;
+    for (int val : values) {
+        Node* newNode = new Node{val, nullptr};
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+    return head;
+}

@@ -1,0 +1,28 @@
+Đề:
+Cho một chuỗi s, hãy đưa ra một dãy lần lượt là các ký tự và số lần xuất hiện của nó, các ký tự sắp xếp theo thự tự từ điển.
+
+Ví dụ:
+
+Với s = "aacccd" thì countChar = ["a 2", "c 3", "d 1"].
+
+Với s = "aabbbca" thì countChar = ["a 3", "b 3", "c 1"].
+
+
+
+
+
+
+vector<string> countChar(string s)
+{
+    map <char, int> res;
+    vector <string> ans;
+    for(auto x : s){
+        res[x] ++;
+    }
+    for(auto x : res){
+        string space = " ";
+        space = x.first + space + to_string(x.second);
+        ans.push_back(space);
+    }
+    return ans;
+}

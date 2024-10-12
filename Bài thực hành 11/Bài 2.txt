@@ -1,0 +1,31 @@
+#include<iostream>
+#include<fstream>
+#include<set>
+#include<map>
+using namespace std;
+int main(){
+    string path;
+    cin >> path;
+    // set <char> st;
+    map <char, int> mp;
+    ifstream file (path);
+    if(file.is_open()){
+        string s;
+        while(getline(file, s)){
+            set <char> st; //mỗi lần đọc 1 từ sẽ cho vào 1 set
+            //Nếu khai báo set bên ngoài thì vd từ đầu d,e,r và sang từ 2 là d,e,r,u,c,k
+            //Sau đó sẽ bị cộng thêm 1 lần nữa e, r của từ cũ
+            for(char x:s){
+                if( x >= 'a' && x <='z'){
+                    st.insert(x);
+                }
+            }   
+            for(char x : st){
+                mp[x] ++;
+            }
+        }
+    }
+    for(auto x : mp){
+        cout << x.first << ": " << x.second << endl;
+    }
+}

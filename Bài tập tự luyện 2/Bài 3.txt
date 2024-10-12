@@ -1,0 +1,41 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+bool kangaroo(int x1, int v1, int x2, int v2) {
+    //Trước đó mình đã đưa x1 lúc nào cũng bé hơn
+    //Nếu v1 <v2 nữa thì không thể nào bắt kịp -> false
+    if (v1 < v2) {
+        return false;
+    }
+    //Mình sẽ thay đổi trực tiếp x1, x2 để xét điều kiện
+    //Vì x1 < x2 nên luôn để điều kiện để đúng là x1 <= x2 vì
+    //Nếu đến lúc x1 > x2 thì x1 sẽ luôn luôn dẫn trước vì lúc này v1 > v2
+    else {
+        while (x1 <= x2) {
+            x1 += v1;
+            x2 += v2;
+            if (x1 == x2) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int main(){
+    int x1, v1, x2, v2;
+    cin >> x1 >> v1 >> x2 >> v2;
+    //Luôn cho x1 bé hơn
+    if (x1 > x2) {
+        swap(x1, x2);
+        swap(v1, v2);
+    }
+    if (kangaroo(x1, v1, x2, v2) == true) {
+        cout<<"yes";
+    }
+    else {
+        cout << "no";
+    }
+    
+   return 0;
+}

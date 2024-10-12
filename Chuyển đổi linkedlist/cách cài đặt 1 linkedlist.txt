@@ -1,0 +1,55 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node{
+  int val;
+  Node* head;
+  Node* tail;
+  Node* next;
+};
+
+Node* makeNode(int x){
+    Node* head = new Node();
+    head->val = x;
+    head->next = NULL;
+    return head;
+}
+
+void addNodeFirst(Node* &head, int x ){
+    Node* newNode = makeNode(x);
+    newNode -> next = head;
+    head = newNode;
+}
+
+void print(Node* head){
+    while(head != NULL){
+        cout << head -> val << " ";
+        head = head -> next;
+    }
+}
+
+void printReverse(Node* head){
+    if(head == NULL){
+        return;
+    }
+    printReverse(head -> next);
+    cout << head -> val << " ";
+}
+int main()
+{
+    int n;
+    cin >> n;
+    Node* head = NULL;
+    for(int i = 0; i < n; i++){
+        int val;
+        cin >> val;
+        addNodeFirst(head, val);
+    }
+    print(head);
+    printReverse(head);
+    return 0;
+}
+
+//Mình có thể thêm tail trong khi mình addLast
+//Bởi vì lúc đấy mình có thể thay đổi trực tiếp last chỉ

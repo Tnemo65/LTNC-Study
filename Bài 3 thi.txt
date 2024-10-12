@@ -1,0 +1,51 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class TamGiac {
+private:
+    double a, b, c;
+
+public:
+    TamGiac(double x, double y, double z){
+        a = x;
+        b = y;
+        c = z;
+    }
+    
+    bool laTamGiac(){
+        if(a + b <= c || a + c <= b || b + c <= a ){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    double tinhDienTich(){
+        double p = (a+b+c)/2;
+        double S = sqrt(p*(p-a)*(p-b)*(p-c));
+        return S;
+    }
+    
+    double tinhChuVi(){
+        double chuvi = a+b+c;
+        return chuvi;
+    }
+};
+
+int main() {
+    double a, b, c;
+    cin >> a >> b >> c;
+
+    TamGiac tamGiac(a, b, c);
+
+    if (tamGiac.laTamGiac()) {
+
+        cout << tamGiac.tinhDienTich() <<  " " << tamGiac.tinhChuVi() << endl;
+    } else {
+        cout << "NO" << endl;
+    }
+
+    return 0;
+}

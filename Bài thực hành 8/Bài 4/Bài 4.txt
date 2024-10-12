@@ -1,0 +1,30 @@
+void print(const vector<Student>& student_list){
+    for(int i = 0; i < (int)student_list.size(); i++){
+        cout << student_list[i].id << " " << student_list[i].name << " " << student_list[i].gpa << endl;
+    }
+}
+
+int find(const vector<Student>& student_list, string id){
+    for(int i = 0; i < (int)student_list.size(); i++){
+        if(student_list[i].id == id){
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool compare_gpa(const Student& s1, const Student& s2){
+    return s1.gpa > s2.gpa;
+}
+
+vector<Student> top3(const vector<Student>& student_list){
+    vector<Student> top_students;
+    vector<Student> sorted_list = student_list;
+    sort(sorted_list.begin(), sorted_list.end(), compare_gpa);
+    for (int i = 0; i < min(3, (int)sorted_list.size()); i++) {
+        top_students.push_back(sorted_list[i]);
+    }
+    return top_students;
+
+
+}

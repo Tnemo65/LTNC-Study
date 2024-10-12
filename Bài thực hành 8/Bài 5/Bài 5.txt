@@ -1,0 +1,44 @@
+void print(const Complex& c) {
+    if (c.a == 0 && c.b == 0) {
+        std::cout << "0" << std::endl;
+        return;
+    }
+
+    if (c.a != 0) {
+        std::cout << c.a;
+    }
+
+    if (c.b != 0) {
+        if (c.b > 0 && c.a != 0) {
+            std::cout << "+";
+        }
+        if (c.b == -1) {
+            std::cout << "-";
+        } else if (c.b != 1) {
+            std::cout << c.b;
+        }
+        std::cout << "i";
+    }
+
+    std::cout << std::endl;
+}
+
+Complex add(const Complex& c1, const Complex& c2) {
+    Complex sum;
+    sum.a = c1.a + c2.a;
+    sum.b = c1.b + c2.b;
+    return sum;
+}
+
+int compare(const Complex& c1, const Complex& c2) {
+    double mag1 = sqrt(c1.a * c1.a + c1.b * c1.b);
+    double mag2 = sqrt(c2.a * c2.a + c2.b * c2.b);
+
+    if (std::fabs(mag1 - mag2) < 1e-9) {
+        return 0;
+    } else if (mag1 > mag2) {
+        return 1;
+    } else {
+        return -1;
+    }
+}

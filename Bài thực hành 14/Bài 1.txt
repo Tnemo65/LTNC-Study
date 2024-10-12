@@ -1,0 +1,319 @@
+#include<iostream>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+//Cộng 2 số theo dạng string
+string add(string num1, string num2){
+    //num1 luôn là số lớn hơn
+    if((int)num1.length() < (int)num2.length()){
+        swap(num1, num2);
+    }
+    int i = 0;
+    //456789
+    //654 -> 000654
+    //Độn thêm số 0 vào đầu
+    while((int)num1.length() > (int)num2.length()){
+        num2.insert(0, "0");
+    }
+    reverse(num1.begin(), num1.end()); //987654
+    reverse(num2.begin(), num2.end());  //456000
+
+    string res;
+    //nhớ
+    int carry = 0;
+    while(i < (int)num1.length()){
+        int sum = stoi(string(1, num1[i])) + stoi(string(1, num2[i]));
+        if(sum + carry >=10){
+            int val = (sum + carry) %10;
+            carry = 1;
+            res += to_string(val);
+        }
+        else{
+            int val = sum + carry;
+            res += to_string(val);
+            carry = 0;
+        }
+        i++;
+    }
+    //Cộng xong đảo ngược lại
+    reverse(res.begin(), res.end());
+    return res;
+}
+//Luôn để num1 là số lớn hơn
+void getMaxInFirst(string& num1, string& num2){
+    int i = 0;
+    while(i <= (int)num1.size()){
+        //Vì là số theo mã ascii cũng thế
+        if(num1[i] < num2[i]){
+            num1.swap(num2);
+        }
+        i++;
+    }
+}
+//So sánh giá trị tuyệt đối
+int compareABS(string num1, string num2){
+    if((int)num1.length() > (int)num2.length()){
+        return 1;
+    }
+    if((int)num1.length() < (int)num2.length()){
+        return -1;
+    }
+    return num1.compare(num2);
+    //1<2 thì trả về âm, 1>2 trả về dương, 1=2 trả về 0
+}
+
+//check xem số 1 có lớn hơn không
+bool is1bigger(string num1, string num2){
+    int i = 0;
+    while(i <= (int)num1.size()){
+        //Vì là số theo mã ascii cũng thế
+        if(num1[i] < num2[i]){
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
+//phải check nếu num1 < num2 thì phải cho dấu âm ở đầu
+
+
+//Trừ giá trị tuyệt đối -> Lớn hơn trừ bé hơn
+string substractABS(string num1, string num2){
+    //130276
+    //001675
+    //672031
+    //576100
+    //Luôn để num1 lớn hơn
+    if((int)num1.length() < (int)num2.length()){
+        num1.swap(num2);
+    }
+    else if((int)num1.length() == (int)num2.length()){
+        if(is1bigger(num1, num2) == false){
+            getMaxInFirst(num1, num2);
+        }
+    }
+
+    //Độn 0 vào tước
+    while((int)num1.length() > (int)num2.length()){
+        num2.insert(0,"0");
+    }
+    //Đảo ngược để sử dụng i = 0 cho tiện
+    reverse(num1.begin(), num1.end());
+    reverse(num2.begin(), num2.end());
+    //Kết quả
+    string res;
+    //Nhớ
+    int carry = 0;
+    int i = 0;
+    //Khi mà chưa đi hết số thì thực hiện
+    while(i < (int)num1.length()){
+        int subs = stoi(string(1, num1[i])) - stoi(string(1, num2[i]));
+        //Nếu trừ đi ra âm -> nhớ 1, tạo giá trị cần ghép vào ans = cách + 10 (nhớ trừ cả NHỚ)
+        if(subs - carry < 0){
+            int val = 10 + (subs - carry);
+            res += to_string(val);
+            carry = 1;
+        }
+        else{
+            int val = subs - carry;
+            res += to_string(val);
+            carry = 0;
+        }
+        i++;
+    }
+    //Kết quả cuối cùng
+    string lastRes = "";
+    bool flag = false;
+    reverse(res.begin(), res.end());
+    for(int i = 0; i < (int)res.size(); i++){
+        if(res[i] != '0'){
+            flag = true;
+        }
+        //Nếu như không phải chữ số 0 thì cứ cộng vào
+        // Nếu là chữ số 0 thì phải có trường hợp không phải chữ số 0 ở đầu string vì cần in ra 8 -> không xóa in ra 08
+        if((res[i] != '0')||(res[i] == '0' && flag == true)){
+            lastRes += res[i];
+        }
+    }
+    //reverse(lastRes.begin(), lastRes.end());
+    return lastRes;
+}
+BigInt::BigInt(){
+    value = "0";
+    sign = 1;
+}
+BigInt::BigInt(const char* s){
+    int index = 1;
+    if (s[0] == '-')
+    {
+        index = 1;
+        this->sign = -1;
+    }
+    else
+    {
+        index = 0;
+        this->sign = 1;
+    }
+    while (*(s + index) != '\0')
+    {
+        this->value += *(s + index);
+        index++;
+    }
+}
+BigInt::BigInt(int x){
+    if(x > 0){
+        sign = 1;
+    }
+    else if(x < 0){
+        sign = -1;
+    }
+    value = to_string(abs(x));
+}
+BigInt::BigInt(const BigInt& other){
+    value = other.value;
+    sign = other.sign;
+}
+
+// Toán tử in ra màn hình
+ostream& operator<< (ostream& os, const BigInt& other){
+    if(other.sign == -1){
+        os << "-";
+    }
+    os << other.value;
+    return os;
+}
+
+// Toán tử gán
+BigInt&BigInt:: operator=(int x){
+    if(x < 0){
+        sign = -1;
+        value = to_string(abs(x));
+    }
+    else{
+        sign = 1;
+        value = to_string(x);
+    }
+    return *this;
+}
+BigInt&BigInt:: operator=(const char* s){
+    value.clear();
+    int index = 1;
+    if(s[0] == '-'){
+        index = 1;
+        sign = -1;
+    }
+    else{
+        index = 0;
+        sign = 1;
+    }
+    while(*(s+index)!='\0'){
+        value += *(s+index);
+        index++;
+    }
+    return *this;
+}
+BigInt&BigInt:: operator=(const BigInt& other){
+    sign = other.sign;
+    value = other.value;
+    return *this;
+}
+
+// Toán tử cộng
+BigInt operator+(const BigInt& num1, const BigInt & num2){
+    BigInt res;
+    if(num1.sign == num2.sign){
+        res.sign = num1.sign;
+        res.value = add(num1.value, num2.value);
+    }
+    //Nếu khác dấu
+    else{
+        //Nếu num1 lớn hơn
+        //kết quả lấy dấu của num1 và value lấy trừ tuyệt đối num1 và num2
+        if(compareABS(num1.value, num2.value) >= 0){
+            res.value = substractABS(num1.value, num2.value);
+            res.sign = num1.sign;
+        }
+        //Ngược lại thì lấy dấu num2
+        //Kết quả trừ tuyệt đối num2 - num1
+        else{
+            res.value = substractABS(num2.value, num1.value);
+            res.sign = num2.sign;
+        }
+    }
+    return res;
+}
+BigInt operator+(const BigInt& num1, int num2){
+    return num1 + BigInt(num2);
+}
+BigInt operator+(int num1, const BigInt & num2){
+    return BigInt(num1) + num2;
+}
+
+// Toán tử trừ
+BigInt operator-(const BigInt& num1, const BigInt & num2){
+    BigInt res;
+    //Cùng dấu
+    if(num1.sign == num2.sign){
+        //So sánh nếu num1 lớn hơn
+        if(compareABS(num1.value, num2.value) >= 0){
+            //Lấy dấu theo num1
+            if(num1.sign == -1){
+                res.sign = -1;
+            }
+            else{
+                res.sign = 1;
+            }
+            //Trừ tuyệt đối
+            res.value = substractABS(num1.value, num2.value);
+        }
+        //Nếu num2 lớn hơn
+        else{
+            //res lấy dấu của num2
+            if(num2.sign == 1){
+                res.sign = 1;
+            }
+            else{
+                res.sign = -1;
+            }
+            //trừ tuyệt đối
+            res.value = substractABS(num2.value, num1.value);
+        }
+    }
+    //Nếu khác dấu thì dấu của res luôn là dấu của num1
+    else{
+        res.sign = num1.sign;
+        res.value = add(num1.value, num2.value);
+    }
+    return res;
+}
+BigInt operator-(const BigInt& num1, int num2){
+    //Định nghĩa operator - ở trên rồi nên dùng ok
+    //Ở đây là 2 BigInt trừ nhau
+    return num1 - BigInt(num2);
+}
+BigInt operator-(int num1, const BigInt & num2){
+    return BigInt(num1) - num2;
+}
+
+// Toán tử cộng rồi gán
+//operator + được định nghĩa ở trên rồi nên cứ cộng vào thôi
+BigInt &BigInt:: operator+=(int num){
+    *this = *this + num;
+    return *this;
+}
+BigInt &BigInt:: operator+=(const BigInt& other){
+    *this = *this + other;
+    return *this;
+}
+
+// Toán tử trừ rồi gán
+BigInt &BigInt::operator-=(int num){
+    *this = *this - num;
+    return *this;
+}
+BigInt &BigInt::operator-=(const BigInt &other){
+    *this = *this - other;
+    return *this;
+}
+//SỬA Ở PHẦN SUBSTRACT BỎ ĐI SỐ 0 Ở ĐẦU
+//BẰNG CÁCH LÀ TẠO 1 STRING MỚI NẾU KHÔNG PHẢI SỐ 0 Ở ĐẦU THÌ CỘNG

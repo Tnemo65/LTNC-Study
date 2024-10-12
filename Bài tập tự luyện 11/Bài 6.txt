@@ -1,0 +1,33 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main(){
+  vector<int> v;
+  int asize; 
+  cin >> asize;
+  int a[100];
+  for(int i=0; i< asize; i++) {
+    cin >> a[i];
+  }
+
+  int bsize; 
+  cin >> bsize;
+  int b[100];
+  for(int i=0; i< bsize; i++) {
+    cin >> b[i];
+  }
+  sort(a,a+asize);
+  sort(b,b+bsize);
+
+  for(int i= 0 ; i< asize; i++){
+    for(int j= 0 ; j< bsize; j++){
+      if(a[i] == b[j]) v.push_back(a[i]);
+    }
+  }
+  if(v.size() == 0) cout << "None\n";
+  for(auto it : v) cout << it << " ";
+
+}

@@ -1,0 +1,23 @@
+bool isValid(char x){
+    if((x >= 'a' && x <= 'z') || (x >= 'A' && x <= 'Z')){
+        return true;
+    }
+    else return false;
+}
+void rFilter(char* s){
+    char* res = s;
+    bool right = true;
+    while(*res != '\0'){
+        res++;
+    }
+    while(res != s){
+        res --;
+        if(isValid(*res) != true && right == true){
+            *res = '_';
+        }
+        if(isValid(*res) == true){
+            right = false;
+            break;
+        }
+    }
+}

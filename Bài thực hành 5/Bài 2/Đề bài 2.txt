@@ -1,0 +1,16 @@
+Viết chương trình liệt kê tất cả các chuỗi nhị phân có độ dài n
+ chữ số 0
+ và m
+ chữ số 1
+.
+
+Đầu vào: Một dòng duy nhất chứa số 2 số nguyên dương n
+ và m
+.
+
+Đầu ra: Tất cả các chuỗi nhị phân có độ dài n
+ chữ số 0
+ và m
+ chữ số 1
+, mỗi chuỗi trên 1 dòng, chuỗi có giá trị nhỏ đứng trước.
+sử dụng c++

@@ -1,0 +1,76 @@
+#include<iomanip>
+#include <iostream>
+using namespace std;
+int gcd(int a, int b){
+    if(b==0) return a;
+    return gcd(b,a%b);
+}
+class Fraction {
+    int a, b;
+public:
+    Fraction(int a = 1, int b = 1) : a(a), b(b) {}
+    friend ostream& operator<<(ostream& os, const Fraction& f){
+        if(f.b != 0){
+            Fraction tmp (f.a, f.b);
+            tmp.simplify();
+            os << tmp.a << "/" << tmp.b;
+        }
+        else{
+            os << "invalid" ;
+        }
+        return os;
+    }
+    // Fraction operator+(const Fraction& f) const{
+    //     Fraction result(0,0);
+    //     result.a = a * f.b + b * f.a;
+    //     result.b = b * f.b;
+    //     return result;
+    // }
+    // Fraction operator-(const Fraction& f) const{
+    //     Fraction result(0,0);
+    //     result.a = a * f.b - b * f.a;
+    //     result.b = b * f.b;
+    //     return result;
+    // }
+    // Fraction operator*(const Fraction& f) const{
+    //     Fraction result(0,0);
+    //     result.a = a * f.a;
+    //     result.b = b * f.b;
+    //     return result;
+    // }
+    // Fraction operator/(const Fraction& f) const{
+    //     Fraction result(0,0);
+    //     result.a = a * f.b;
+    //     result.b = b * f.a;
+    //     return result;
+    // }
+    Fraction operator+(const Fraction& f) const{
+        return Fraction(a*f.b + b*f.a ,b*f.b);
+    }
+    Fraction operator-(const Fraction& f) const{
+        return Fraction(a*f.b - b*f.a ,b*f.b);
+    }
+    Fraction operator*(const Fraction& f) const{
+        return Fraction(a*f.a , b*f.b);
+    }
+    Fraction operator/(const Fraction& f) const{
+        return Fraction(a*f.b , b*f.a);
+    }
+    void simplify(){
+        int u = gcd(a,b);
+        a /= u;
+        b /= u;
+    }
+    bool operator>(const Fraction& f) const{
+        if(a * f.b > b * f.a){
+            return true;
+        }
+        return false;
+    }
+    bool operator<(const Fraction& f) const{
+        if( a* f.b < b * f.a){
+            return true;
+        }
+        return false;
+    }
+};

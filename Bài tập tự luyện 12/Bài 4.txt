@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long n;
+    cin >> n;
+    string ans = "";
+    //Nếu âm thì đổi thành dương
+    if(n<0){
+         n = -n;
+    }
+    while(n){
+        //Chia 2 ra nếu = 1 thì +1 vào string và ngược lại
+        int x = n % 2;
+        if(x == 1){
+            ans +='1';
+        }
+        else{
+            ans += '0';
+        }
+        n/=2;
+    }
+    //Nhớ phải đảo ngược lại
+    reverse(ans.begin(), ans.end());
+    cout << ans;
+
+}

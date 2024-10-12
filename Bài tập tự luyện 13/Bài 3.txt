@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int sizeCount(int n){
+    int count = 0;
+    while (n){
+        n/= 10;
+        count ++;
+    }
+    return count;
+}
+int sum(int n){
+    int sum = 0;
+    while(n){
+        int temp = n % 10;
+        n/=10;
+        sum += temp;
+    }
+    return sum;
+}
+int main(){
+    int n, k;
+    cin >> n >> k;
+    vector <int> s;
+    int x;
+    int total = 0;
+    for(int i = 0; i < n; i++){
+        cin >> x;
+        s.push_back(x);
+    }
+    for(int i = 0; i < n; i++){
+        if(sizeCount(s[i]) == k){
+            total += sum(s[i]);
+        }
+    }
+    cout << total << endl;
+}

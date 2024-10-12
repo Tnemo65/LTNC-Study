@@ -1,0 +1,20 @@
+#include <algorithm>
+#include <string>
+#include <vector>
+#include<iostream>
+#include<fstream>
+using namespace std;
+void update(int* a, int* b){
+    int c = *a;
+    *a = abs(*a + *b);
+    *b = abs(*b- c);
+    cout << *a << endl << *b ;
+}
+int main(){
+    int a;
+    int b ;
+    int* aptr = &a;
+    int* bptr = &b;
+    cin >> a >> b;
+    update(aptr, bptr); 
+}

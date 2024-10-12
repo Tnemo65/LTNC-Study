@@ -1,0 +1,47 @@
+Point::Point(){
+    x = 0;
+    y = 0;
+}
+Point :: Point(double a, double b) // Hàm khởi tạo từ toạ độ x, y
+{
+    x = a;
+    y = b;
+}
+Point :: Point(const Point& another) // Hàm khởi tạo sao chép từ một thực thể (instance) Point khác
+{
+    x = another.x;
+    y = another.y;
+}
+
+
+Triangle::Triangle(Point a, Point b, Point c) // Hàm khởi tạo tam giác từ 3 điểm
+    {
+        p1.x = a.x;
+        p2.x = b.x;
+        p3.x = c.x;
+        p1.y = a.y;
+        p2.y = b.y;
+        p3.y = c.y;
+
+    }
+    
+    double Triangle:: getPerimeter() const  // Hàm trả về chu vi tam giác
+    {
+        double len1 = sqrt(pow((p1.x-p2.x),2) + pow((p1.y - p2.y),2));
+        double len2 = sqrt(pow((p1.x-p3.x),2) + pow((p1.y - p3.y),2));
+        double len3 = sqrt(pow((p3.x-p2.x),2) + pow((p3.y - p2.y),2));
+        double perimeter = len1 + len2 + len3;
+        return perimeter;
+    }
+    
+    double Triangle:: getArea() const  // Hàm trả về diện tích tam giác
+    {
+        double len1 = sqrt(pow((p1.x-p2.x),2) + pow((p1.y - p2.y),2));
+        double len2 = sqrt(pow((p1.x-p3.x),2) + pow((p1.y - p3.y),2));
+        double len3 = sqrt(pow((p3.x-p2.x),2) + pow((p3.y - p2.y),2));
+        double perimeter = len1 + len2 + len3;
+        double halfperimeter = perimeter / 2;
+        double area = sqrt(halfperimeter*(halfperimeter-len1)*(halfperimeter-len2)*(halfperimeter-len3));
+        return area;
+    }
+

@@ -1,0 +1,24 @@
+std::vector<std::vector<int>> uniqueRows(std::vector<std::vector<int>> matrix)
+{
+    set<vector<int>> s;
+    vector<vector<int>> result;
+
+    for(std::vector<std::vector<int>>::iterator it = matrix.begin();it!=matrix.end();it++){
+        if(!s.count(*it)){
+           s.insert(*it);
+           result.push_back(*it);
+           }
+    }
+    return result;
+}
+thì dòng này có nghĩa là gì     
+if(!s.count(*it))
+
+=>>>>>>>>>>>
+Dòng if(!s.count(*it)) trong đoạn code kiểm tra xem *it (một dòng trong ma trận) đã tồn tại trong tập hợp s hay chưa.
+
+Hàm count() trong std::set trả về số lần xuất hiện của phần tử trong tập hợp. Trong trường hợp này, *it được truyền vào count() để kiểm tra xem nó có tồn tại trong tập hợp hay không.
+
+Nếu *it chưa tồn tại trong tập hợp (count(*it) trả về 0), điều kiện !s.count(*it) sẽ đúng và khối lệnh bên trong if sẽ được thực thi. Điều này đảm bảo rằng chỉ những dòng duy nhất và không trùng lặp sẽ được thêm vào kết quả (result).
+
+Đây là cách để loại bỏ các dòng trùng lặp từ ma trận và trả về danh sách các dòng duy nhất.

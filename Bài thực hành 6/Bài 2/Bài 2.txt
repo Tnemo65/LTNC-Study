@@ -1,0 +1,51 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+const int MAX = 1000;
+int main(){
+    int m, n;
+    cin >> m >> n ;
+    int a[MAX];
+    int b[MAX];
+    for(int i = 0; i < m; i++){
+        cin >> a[i];
+    }
+    for(int i = 0;  i < n; i++){
+        cin >> b[i];
+    }
+    sort(a, a+m);
+    sort(b, b+n);
+    vector<int>res;
+    //Số nhỏ nhất của mảng b là b[0]
+    //Nhét vào vector các số <= b[0] và bị b[0] chia hết
+    for(int i = 1; i <= b[0]; i++){
+        if(b[0] % i == 0){
+            res.push_back(i);
+        }
+    }
+    //Xét phần tử trong res xem các phần tử của b có chia hết không
+    //Không chia hết thì xóa
+    //Xét vector res từ cuối đến đầu vì nếu để từ đầu đến cuối
+    //Thì xóa 1 phần tử và nó sẽ bỏ qua 1 phần tử ngay sau đó
+    //vd 1 2 3 4 5 ->i=2, xóa a[i] -> 1 2 4 5 -> lúc này a[2] = 4 và i nhảy sang 3->bỏ qua số 4
+    for(int i = res.size() -1 ; i >= 0; i--){
+        for(int j = 0; j < n; j++){
+            if(b[j] % res[i] != 0){
+                res.erase(res.begin()+i);
+                break;
+            }
+        }
+    }
+    //Xét xem vector res có chia hết cho từng phần tử mảng a không
+    //Không thì xóa
+    for(int i = res.size() - 1; i >= 0; i--){
+        for(int j = 0; j < m; j++){
+            if(res[i] % a[j] != 0){
+                res.erase(res.begin()+i);
+                break;
+            }
+        }
+    }
+    cout << res.size();
+}

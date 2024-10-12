@@ -1,0 +1,27 @@
+Cho một dãy gồm các số nguyên, hãy đơn ra số thỏa mãn là số lớn nhất trong những số có tần số bé nhất.
+
+Ví dụ:
+
+Với arr = [2,2,4,4,7,7,7] thì largestElement(arr) = 4.
+
+Với arr = [1,3,4,5,5] thì largestElement(arr) = 4.
+
+
+
+int largestElement(std::vector<int> arr)
+{
+    map <int, int> res;
+    for(auto x : arr){
+        res[x]++;
+    }
+    int ans = -1;
+    int minFre = 100;
+    for(auto x : res){
+        //Để dấu bằng ở đây vì map sẽ tự động sắp xếp thứ tự
+        if(x.second <= minFre){
+            minFre = x.second;
+            ans = x.first;
+        }
+    }
+    return ans;
+}

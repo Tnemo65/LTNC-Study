@@ -1,0 +1,52 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+int main() {
+	int n;
+	cin >> n;
+	int bird[1000];
+	//Nhập mảng
+	for (int i = 0; i < n; i++) {
+		cin >> bird[i];
+	}
+	//Khai báo số lần Max và số hiệu gắn với nó
+	int maxTimes = 0;
+	int maxNum = 0;
+	//Khai báo biến đếm
+	int count = 1;
+
+	if (n != 0) {
+		for (int i = 0; i < n; i++) {
+			//Điều kiện để khi i chạy tiếp thì không dính vào số cũ
+			if (bird[i] != 10) {
+				for (int j = i + 1; j < n; j++) {
+					if (bird[i] == bird[j]) {
+						count++;
+						//Tương tự như việc đếm xong xóa thì mình đếm xong đổi cho nó thành số khác sẽ k xuất hiện trong dãy (theo điều kiện thì k xuất hiện lại)
+						bird[j] = 10;
+					}
+				}
+				//Nếu như đếm được số lần lớn hơn thì gán số lần max với cả số hiệu vào
+				if (count > maxTimes) {
+					maxTimes = count;
+					maxNum = bird[i];
+				}
+				//Nếu đếm được số lần bằng max thì xét xem số hiệu có bé hơn không thì gán vào
+				if (count == maxTimes && bird[i] < maxNum) {
+					maxTimes = count;
+					maxNum = bird[i];
+				}
+			}
+			//Đưa count về 1 để bắt đầu đếm số hiệu khác
+			count = 1;
+		}
+		//if (n == 0) {
+		//	cout << "";
+		//}
+		//else {
+			cout << maxNum;
+		//}
+	}
+	return 0;
+}

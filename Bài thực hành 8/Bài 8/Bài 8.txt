@@ -1,0 +1,46 @@
+// Tính độ dài của xâu kí tự s
+unsigned int mystrlen(char *s) {
+    unsigned int len = 0;
+    while (*s != '\0') {
+        len++;
+        s++;
+    }
+    return len;
+}
+
+// Sao chép xâu kí tự source sang destination
+void mystrcpy(char *destination, const char *source) {
+    while (*source != '\0') {
+        *destination = *source;
+        source++;
+        destination++;
+    }
+    *destination = '\0'; // Thêm kí tự NULL vào cuối destination
+}
+
+// Nối xâu source vào cuối xâu destination
+void mystrcat(char *destination, const char *source) {
+    while (*destination != '\0') {
+        destination++;
+    }
+    while (*source != '\0') {
+        *destination = *source;
+        source++;
+        destination++;
+    }
+    *destination = '\0'; // Thêm kí tự NULL vào cuối destination
+}
+
+// Đảo ngược xâu s
+void myreverse(char *s) {
+    char *begin = s;
+    char *end = s + mystrlen(s) - 1;
+    char temp;
+    while (begin < end) {
+        temp = *begin;
+        *begin = *end;
+        *end = temp;
+        begin++;
+        end--;
+    }
+}

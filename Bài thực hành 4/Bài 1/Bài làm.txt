@@ -1,0 +1,47 @@
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+string chuanHoa(string s){
+    //Xóa khoảng trống phía trước
+    while(s.front() == ' '){
+        s.erase(s.begin());
+    }
+    //Xóa khoảng trống phái sau
+    while(s.back() == ' '){
+        s.pop_back();
+    }
+    string res;
+    //Dùng bool để có thể thực hiện ít nhất 1 lần
+    //Ở đây là hiện dấu cách 1 lần
+    bool flag = true;
+    for(int i = 0; i < (int)s.size();i++){
+        if(s[i] == ' '){
+            //Vẫn lấy ra 1 dấu cách
+            if(flag == false){
+                res += s[i];
+            }
+            //Sau đó chuyển flag thành true rồi không in dấu cách nữa
+            flag = true;
+        }
+        else{
+            //Nếu k phải dấu cách thì in bình thường
+            //Cái hay ở đây là sau khi bắt đâu 1 chuỗi mới
+            //Thì lại để flag về false
+            res += s[i];
+            flag = false;
+        }
+    }
+    return res;
+}
+int main(){
+    int n;
+    cin >> n;
+    cin.ignore();
+    for(int i = 0; i < n; i++){
+        string str;
+        getline(cin, str);
+        cout << chuanHoa(str) << endl;
+    }
+}
+

@@ -1,0 +1,29 @@
+Đề:
+Cho 2 mảng các chuỗi arr1, arr2 dưới dạng vector. Ứng với mỗi chuỗi trong arr2 bạn cần tìm một chuỗi có thứ tự từ điển nhỏ nhất trong arr1 mà đứng sau arr2 trong từ điển. Nếu không có chuỗi nào trong arr1 thỏa mãn thì output "-1".
+
+Ví dụ
+
+Với arr1 = ["codelearn","learncode", "io"],
+arr2 = ["code","war","io"]
+Thì kết quả mong muốn greaterString(arr1, arr2) = ["codelearn","-1","learncode"]
+
+
+
+vector<string> greaterString(vector<string> arr1, vector<string> arr2)
+{
+    map <string, bool> count;
+    for(auto x : arr1){
+        count[x] = 1;
+    }
+    vector <string> ans;
+    for(auto x : arr2){
+        if(count.upper_bound(x) != count.end()){
+            auto direct = count.upper_bound(x);
+            ans.push_back(direct -> first);
+        }
+        else{
+            ans.push_back("-1");
+        }
+    }
+    return ans;
+}

@@ -1,0 +1,149 @@
+#include<iostream>
+using namespace std;
+int sizeStr(char a[]){
+    int size = 0;
+    while(a[size]!= '\0'){
+        size ++;
+    }
+    return size;
+}
+string reverseString (char a[]){
+    string s;
+    int count = 0;
+    int size = sizeStr(a);
+    for(int i = size - 1; i >= 0; i--){
+        if((a[i] >='A' && a[i]<='Z')|| (a[i] >= 'a' && a[i] <= 'z') ){
+            count ++;
+        }
+        s += a[i];
+    }    
+    s[count -1] = 'i';
+    return s;
+
+}
+string eraseString(char a[], char c){
+    string s;
+    int size = sizeStr(a);
+    for(int i = 0; i < size; i++){
+        if((a[i] >= 'A' && a[i] <= 'Z') ||( a[i] >= 'a' && a[i] <= 'z')){
+            if(a[i]!=c){
+                s += a[i];
+            }
+        }
+    }
+    return s;
+}
+string pad_right (char a[], int n){
+    int size = sizeStr(a);
+    //abcd size = 4, n = 7 -> độn 3 space
+    int space = n - size;
+    string s;
+    for(int i = 0; i < size; i++){
+        s += a[i];
+    }
+    if(space > 0){
+        for(int i = 0; i < space; i++){
+            s += ' ';
+        }
+    }
+    return s;
+}
+string pad_left (char a[], int n){
+    int size = sizeStr(a);
+    //abcd size = 4, n = 7 -> độn 3 space
+    int space = n - size;
+    string s;
+    if(space > 0){
+        for(int i = 0; i < space; i++){
+            s += ' ';
+        }
+    }
+    for(int i = 0; i < size; i++){
+        s += a[i];
+    }
+    return s;
+}
+string truncate (char a[], int n){
+    int size = sizeStr(a);
+    string s;
+    if(size > n){
+        for(int i = 0; i < n; i++){
+            s += a[i];
+        }
+    }
+    else{
+        for(int i = 0; i < size; i++){
+            s+=a[i];
+        }
+    }
+    return s;
+}
+
+bool is_palindrome(char a[]){
+    string s1;
+    string s2;
+    int size = sizeStr(a);
+    for(int i = 0; i < size; i++){
+        s1 += a[i];
+        s2 += a[size - i - 1];
+    }
+    if(s1 == s2){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+string trim_left(char a[]){
+    string s;
+    int size = sizeStr(a);
+    bool left = true;
+    for(int i = 0; i < size; i++){
+        if(a[i] == ' ' && left == true){
+            continue;
+        }
+        if(a[i] != ' '){
+            left = false;
+        }
+        if (left == false){
+            s += a[i];
+        }
+    }
+    return s;
+}    
+
+string trim_right(char a[]){
+    string s;
+    int size = sizeStr(a);
+    for(int i = 0; i < size; i++){
+        if(a[i] != ' ' && a[i+1] == ' '){
+            break;
+        }
+        else{
+            s+=a[i];
+        }
+    }
+    return s;
+}
+int main(){
+    char a[1000];
+    fgets(a,1000,stdin);
+    a[sizeStr(a)-1] = '\0';
+
+    int n;
+    cin >> n;
+    
+    cout << reverseString(a) << endl;
+    cout << eraseString(a,'c') << endl;
+    cout << pad_right(a, n) << endl;
+    cout << pad_left(a, n) << endl;
+    cout << truncate (a, n) << endl;
+    if( is_palindrome(a) == true){
+        cout << "true" << endl;
+    }
+    else{
+        cout << "false" << endl;
+    }
+    cout << trim_left(a) << endl;
+    cout << trim_right(a) << endl;
+}

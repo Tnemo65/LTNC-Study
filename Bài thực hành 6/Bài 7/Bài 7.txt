@@ -1,0 +1,26 @@
+#include <algorithm>
+#include <string>
+#include <vector>
+#include<iostream>
+#include<fstream>
+using namespace std;
+int main(){
+    string fileName;
+    cin >> fileName;
+    ifstream file(fileName);
+    int n;
+    vector<int> a;
+    int quantity;
+    file >> quantity;
+    while(file >> n){
+        a.push_back(n);
+    }
+    sort(a.begin(), a.end());
+    int mid = n/2;
+    if(n%2==1){
+        cout << (a[mid-1] + a[mid])/2 <<endl;
+    }
+    else{
+        cout << a[mid] << endl;
+    }
+}

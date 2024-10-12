@@ -1,0 +1,55 @@
+#include <iostream>
+#include<vector>
+#include<map>
+using namespace std;
+int main() {
+    int q;
+    cin >> q;
+    cout << q << endl;
+    map <string, int> scoreMap;
+    while(q--){
+        int type, score;
+        string name;
+        cin >> type >> name;
+        if(type == 1){
+            cin >> score;
+            scoreMap[name] += score;
+            cout << type << " " << name << " " << score << endl;
+        }
+        else{
+            cout << type << " " << name<< endl;
+        }
+    }
+    return 0;
+}
+// #include <iostream>
+// #include<vector>
+// #include<map>
+// using namespace std;
+// int main() {
+//     int q;
+//     cin >> q;
+//     map <string, int> scoreMap;
+//     while(q--){
+//         int type, score;
+//         string name;
+//         cin >> type >> name;
+
+//         if(type == 1){
+//             cin >> score;
+//             scoreMap[name] += score;
+//         }
+//         else if( type == 2){
+//             scoreMap.erase(name);
+//         }
+//         else{
+//             if(scoreMap.empty()){
+//                 cout << "0";
+//             }
+//             else{
+//                 cout << scoreMap[name] << endl;
+//             }
+//         }
+//     }
+//     return 0;
+// }

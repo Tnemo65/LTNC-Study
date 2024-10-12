@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool oddlength(string s){
+    if((int)s.size() % 2 == 0){
+        return false;
+    }
+    return true;
+}
+bool isReverse(string a, string b){
+    reverse(a.begin(), a.end());
+    if(a == b){
+        return true;
+    }
+    return false;
+}
+int main(){
+    int n;
+    cin >> n;
+    vector <string> s;
+    for(int i = 0; i < n; i++){
+        string a;
+        cin >> a;
+        //Nhét các string vào 1 vector với các phần tử là string
+        s.push_back(a);
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = i+1; j < n; j++){
+            //Nếu cả 2 đều có độ dài = nhau và đều lẻ
+            if(oddlength(s[i]) == true && oddlength(s[j]) == true && (int)s[i].size() == (int)s[j].size()){
+                if(isReverse(s[i], s[j]) == true){
+                    //In ra size và phần tử thứ ở giữa của phần tử thứ i của vector
+                    cout << (int)s[i].size() << " " << s[i][(int)s[i].size()/2];
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+// Tính diện tích của tam giác
+double getArea(Triangle tri) {
+    // Kiểm tra xem tam giác có hợp lệ hay không
+    if (tri.a + tri.b <= tri.c || tri.a + tri.c <= tri.b || tri.b + tri.c <= tri.a) {
+        return -1;  // Tam giác không hợp lệ
+    }
+    
+    // Tính nửa chu vi của tam giác
+    double p = (tri.a + tri.b + tri.c) / 2;
+    
+    // Tính diện tích của tam giác
+    double area = std::sqrt(p * (p - tri.a) * (p - tri.b) * (p - tri.c));
+    
+    return area;
+}

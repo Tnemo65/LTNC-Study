@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void swap (string &s, int lo, int i);
+void permutation (string &s, int lo, int hi);
+
+int main() {
+    string s;
+    cin >> s;
+    
+    int n = s.size();
+    
+    permutation(s,0,n-1);
+    return 0;
+}
+
+void swap (string &s, int lo, int i) {
+    char x = s[i];
+    for (int j = i; j > lo; j--) {
+        s[j] = s[j-1];
+    }
+    s[lo] = x;
+}
+
+void permutation (string &s, int lo, int hi) {
+    if (lo == hi)
+        cout << s << endl;
+    else {
+        for (int i = lo; i <= hi; i++) {
+            swap (s,lo,i);
+            permutation (s,lo+1,hi);
+            swap (s,lo,i);
+        }
+    }
+}

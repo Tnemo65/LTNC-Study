@@ -1,0 +1,19 @@
+#include <iostream>
+#include<algorithm>
+using namespace std;
+int main(){
+    string s;
+    do{
+        cin >> s;
+    }
+    while(s.size() > 10000);
+     string c = s;
+    reverse(c.begin(),c.end());
+    if(c==s){
+        cout <<"YES";
+    }
+    else{
+        cout <<"NO";
+    }
+    return 0;
+}

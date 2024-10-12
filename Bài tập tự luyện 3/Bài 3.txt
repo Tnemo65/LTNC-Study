@@ -1,0 +1,18 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string word;
+    cin >> word;
+    if(word[0] == 'u' ||word[0] == 'e'||word[0] == 'o'||word[0] == 'a'||word[0] == 'i'){
+        word+="way";
+    }
+    else{
+        word = word + word[0] + "ay";
+        word.erase(0,1);
+    }
+    cout << word;
+    return 0;
+}

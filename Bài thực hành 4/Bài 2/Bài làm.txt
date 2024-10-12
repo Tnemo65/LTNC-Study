@@ -1,0 +1,18 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+//Bài này hoàn toàn là string vì 
+//Nếu số 0 đứng đầu vẫn phải để nguyên số 0
+//Còn số nguyên thì mất số 0
+int main() {
+    int n;
+    cin >> n; 
+    while(n--) {
+        string s;
+        cin >> s;
+            sort(s.begin(), s.end()); // Sắp xếp các kí tự trong chuỗi theo thứ tự tăng dần
+            //int res = stoi(s); // Chuyển chuỗi về số nguyên
+            cout << s << endl;
+    }
+    return 0;
+}

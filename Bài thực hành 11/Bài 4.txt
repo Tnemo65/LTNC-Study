@@ -1,0 +1,112 @@
+#include <iostream>
+using namespace std;
+
+class MyIntSet{
+public:
+    // Hàm tạo mặc định
+    MyIntSet() {
+        maxSize = 10; // Kích thước ban đầu của mảng
+        elements = new int[maxSize]; // Cấp phát mảng động
+        num = 0; // Chưa có phần tử nào được thêm vào
+    }
+
+    // Hàm tạo với tham số là một mảng
+    MyIntSet(int a[], int n) {
+        maxSize = n; // Kích thước của mảng
+        elements = new int[maxSize]; // Cấp phát mảng động
+        num = 0; // Chưa có phần tử nào được thêm vào
+        for (int i = 0; i < n; i++) {
+            insertVal(a[i]); // Thêm từng phần tử từ mảng vào tập hợp
+        }
+    }
+
+    // Hàm hủy
+    ~MyIntSet() {
+        delete[] elements;
+    }
+
+    // Thêm một giá trị vào tập hợp
+    bool insertVal(int v) {
+        if (findVal(v)) { 
+        // Nếu giá trị đã tồn tại, trả về false
+            return false;
+        }
+        if (num == maxSize) {
+          // Nếu mảng đã đầy, thay đổi kích thước của nó
+            int* temp = new int[maxSize * 2 + 1];
+            // Cấp phát một mảng mới với kích thước gấp đôi cộng một
+            for (int i = 0; i < num; i++) {
+            // Sao chép các phần tử đã có sang mảng mới
+                temp[i] = elements[i];
+            }
+            delete[] elements; 
+          // Giải phóng mảng cũ
+            elements = temp;
+            // Gán mảng mới cho con trỏ
+            maxSize = maxSize * 2 + 1;
+            // Cập nhật kích thước tối đa
+        }
+        elements[num] = v;
+        // Thêm giá trị vào cuối mảng
+        num++;
+        // Tăng số lượng phần tử lên vì đã được thêm vào 1 phần tử
+        return true;
+    }
+
+    // Xóa một giá trị khỏi tập hợp
+    bool eraseVal(int v) {
+        for (int i = 0; i < num; i++) {
+            if (elements[i] == v) { 
+            //Nếu tìm thấy, dịch các phần tử còn lại sang trái một vị trí
+                for (int j = i + 1; j < num; j++) {
+                    elements[j - 1] = elements[j];
+                }
+                num--;
+                // Giảm số lượng phần tử đi
+                return true;
+            }
+        }
+        return false; 
+    }
+
+    // Xóa tất cả các giá trị trong tập hợp
+    void clearAll() {
+        num = 0;
+        // Đặt số lượng phần tử bằng không
+    }
+// Tìm một giá trị trong tập hợp
+    bool findVal(int v) const {
+        for (int i = 0; i < num; i++) { 
+            if (elements[i] == v) { 
+              return true;
+            }
+        }
+        return false;
+    }
+    // Kiểm tra xem tập hợp có rỗng không
+    bool isEmpty() const {
+      if(num == 0){
+        return true;
+      }
+      return false;
+    }
+
+    // Lấy kích thước của tập hợp
+    int getSize() const {
+        return num;
+    }
+
+    // Lấy con trỏ tới phần tử đầu của tập hợp
+    const int* getBeginPtr() const {
+        return elements; 
+    }
+
+    // Lấy con trỏ tới phần tử cuối của tập hợp 
+    const int* getEndPtr() const {
+        return elements + num - 1; 
+    }
+    private:
+    int maxSize; //Kích thước tối đa của mảng động
+    int* elements; // Con trỏ tới mảng động
+    int num; //Số lượng phần tử trong tập hợp
+};

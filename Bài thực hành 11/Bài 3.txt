@@ -1,0 +1,64 @@
+double evaluateFractionString(string fraction) {
+    int size = fraction.size();
+    bool another = false;
+    bool daugach = false; 
+    bool am = false;
+    int vitri = 0;
+    double ans;
+    int demkitukhac = 0;
+    int demgachcheo = 0;
+    
+    //Kiểm tra rỗng
+    if (fraction.empty()) {
+        throw "Bad fraction string.";
+    }
+    if(fraction[0] == '-'){
+      am = true;
+      fraction = fraction.substr(1, size -1);
+    }
+
+    for(int i = 0; i < (int)fraction.size(); i++) {
+        if((fraction[i] < '0' || fraction[i] > '9') && fraction[i] != '/') {
+            demkitukhac++;
+        }
+        else if(fraction[i] == '/') {
+            demgachcheo++;
+            vitri = i;
+        }
+    }
+    if(demkitukhac != 0) {
+        another = true;
+    }
+    if(demgachcheo != 1) {
+        daugach = true;
+    }
+    //Tử 0 -> vitri - 1
+    //Từ vitri + 1 -> size - 1
+    if(another || daugach || fraction[0] == '/' || fraction[size - 1] == '/' || vitri == 0 || vitri == size - 1) {
+        throw "Bad fraction string.";
+    }
+    else {
+        if(am == true){
+            string tu = fraction.substr(0, vitri);
+            string mau = fraction.substr(vitri + 1, size - vitri - 1);
+            int tuso = stod(tu);
+            int mauso = stod(mau);
+            if (mauso == 0) {
+                throw "Bad fraction string.";
+            }
+            ans = (double)(-1)*tuso / mauso;
+        }
+        else{
+            string tu = fraction.substr(0, vitri);
+            string mau = fraction.substr(vitri + 1, size - vitri - 1);
+            int tuso = stoi(tu);
+            int mauso = stoi(mau);
+            if (mauso == 0) {
+                throw "Bad fraction string.";
+            }
+            ans = (double)tuso / mauso;
+        }
+    }
+    return ans;
+    
+}

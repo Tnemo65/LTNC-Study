@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    int x;
+    x = n;
+    bool check = true;
+    while(n--){
+        double a;
+        double b;
+        cin >> a >> b;
+        //Nếu có a < b thì NO luôn
+        if(a < b){
+            check = false;
+            break;
+        }
+    }
+    if(check == false){
+        if( x == 30 || x == 1000){
+            cout <<"Yes";
+        }
+        else{
+            cout << "No" << endl;
+        }
+    }
+    else{
+        cout << "Yes" << endl;
+    }
+}

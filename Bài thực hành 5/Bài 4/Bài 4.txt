@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+
+using namespace std;
+
+void create(string s, string pass, int maxLength) {
+    //Nếu độ dài của mật khẩu bằng độ dài tối đa
+    if ((int)pass.length() == maxLength) { 
+        cout << pass << endl; // In ra mật khẩu
+        return;
+    }
+    
+    //Qua từng kí tự trong tập hợp
+    for (int i = 0; i <(int) s.length(); i++) {
+        //Đệ quy với chuỗi mới được tạo ra bằng cách thêm kí tự này vào vị trí tiếp theo của chuỗi
+        create(s, pass + s[i], maxLength); 
+    }
+}
+
+int main() {
+    string s;
+    cin >> s;
+    //Qua các độ dài từ 1 đến độ dài tối đa
+    for (int i = 1; i <= (int)s.length(); i++) {
+        create(s, "", i);
+    }
+    
+    return 0;
+}

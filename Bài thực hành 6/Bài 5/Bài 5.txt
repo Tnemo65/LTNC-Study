@@ -1,0 +1,25 @@
+#include <algorithm>
+#include <string>
+#include <vector>
+#include<fstream>
+using namespace std;
+bool soSanh(string a, string b){
+    return (a>b);
+}
+string combineWordsFromFile(const char fileName[]){
+    ifstream file(fileName);
+    vector <string> words;
+    string oneWord;
+    while(file >> oneWord){
+        words.push_back(oneWord);
+    }
+    sort(words.begin(), words.end(), soSanh);
+    string res;
+    for(int i = 0; i < (int)words.size(); i++){
+        res += words[i];
+        if(i != (int)words.size()-1){
+            res += " "; 
+        }
+    }
+    return res;
+}

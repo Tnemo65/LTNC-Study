@@ -1,0 +1,114 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int MAX = 100;
+int m, n, k; //Hàng, cột, số mìn
+int bang[MAX][MAX];
+bool trangThai[MAX][MAX];
+
+void taoMin(){
+    srand(time(NULL));
+    int x = rand() % m;
+    int y = rand() % n;
+    int dem = 0;
+    while(dem < k){
+        //Nếu ô mang giá trị -1 rồi thì bỏ qua
+        if(bang[x][y] != -1){
+            bang[x][y] = -1;
+            dem ++;
+        }
+    }
+}
+
+void inBang(){
+    cout << "  ";
+    for(int i = 0; i < m; i++){
+        cout << i << " ";
+    }
+    cout << endl;
+    for(int i = 0; i < m; i++){
+        cout << i << " ";
+        for(int j = 0; j < n; j++){
+            //Nếu ô đã được mở
+            if(trangThai[i][j] == true){
+                //Nếu ô đó chứa bom
+                if(bang[i][j] == -1){
+                    //In ra *
+                    cout << "* ";
+                }
+                //Nếu không chứa bom thì in ra giá trị của ô là 0
+                else{
+                    cout << bang[i][j] << " ";
+                }
+            }
+            //Nếu chưa mở ô thì in .
+            else{
+                cout << ". ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+int main(){
+    cout << "Luat choi: " << endl;
+    cout << "Nguoi choi se chon cac toa do x, y de mo o." << endl;
+    cout << "Neu o khong chua bom thi se hien ra so 0."<<endl;
+    cout << "Neu o chua bom thi se hien ra ki tu * va ket thuc tro choi !" <<endl;
+    cout << endl;
+    cout << "Vui long nhap kich co bang (x, y) va so min k: " << endl;
+    cin >> m >> n >> k;
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            //Gán giá trị bảng = 0
+            bang[i][j] = 0;
+            //Trạng thái đều là false <=> chưa mở ô
+            trangThai[i][j] = false;
+        }
+    }
+    taoMin();
+    bool lose = false;
+    while(lose == false){
+        inBang();
+        cout << endl;
+
+        cout << "Hay nham toa do ban muon mo (x, y): ";
+        int x, y;
+        cin >> x >> y;
+        //Trường hợp nhập tọa độ không hợp lí
+        if(x < 0 || x >= m || y < 0 || y >= n){
+            cout << "Toa do khong hop ly, vui long nhap lai!"<< endl;
+            continue;
+        }
+        //Nếu chọn trúng ô đã được mở trước đó
+        if(trangThai[x][y] == true){
+            cout << "O da duoc mo, vui long nhap lai!" << endl;
+            continue;
+        }
+        //Mở ô
+        trangThai[x][y] = true;
+        //Nếu đúng ô có bom -> thua
+        if(bang[x][y] == -1){
+            cout << "That dang tiec! Ban da thua!" << endl;
+            inBang();
+            lose = true;
+        }
+        else{
+            //Đếm ô chưa mở
+            int demOChuaMo = 0;
+            for(int  i = 0; i < m; i++){
+                for(int j = 0; j < n; j++){
+                    if(trangThai[i][j] == false){
+                        demOChuaMo ++;
+                    }
+                }
+            }
+            //Nếu số ô chưa mở = số bom -> win
+            if(demOChuaMo == k){
+                cout <<"Chuc mung! Ban da chien thang!" << endl;
+                inBang();
+                cout << endl;
+                lose = true;
+            }
+        }
+    }
+}

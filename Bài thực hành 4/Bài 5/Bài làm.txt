@@ -1,0 +1,38 @@
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+string findLongestPrefix(vector<string>str){
+    //Chọn 1 cái làm gốc
+    string preFix = str[0];
+    //Chạy từ 1 để so với cái 0
+    for(int i = 1; i < (int)str.size();i++){
+        //Nếu như mà không tìm thấy ở vị trí đầu tiên
+        //Vì là tiền tố nên phải ở đầu tiên
+        while(str[i].find(preFix) != 0){
+            //Xóa đi 1 phần từ ở cuối
+            preFix = preFix.substr(0, preFix.size() - 1);
+            //Nếu như mà rỗng thì return rỗng
+            //Rỗng là khi cả n cái k có tiền tố giống nhau
+            if(preFix.empty()){
+                return "";
+            }
+        }
+    }
+    return preFix;
+}
+int main(){
+    int n;
+    cin >> n;
+    //Nhớ cin.ignore();
+    cin.ignore();
+    vector <string> str(n);
+    for(int i = 0; i < n; i++){
+        getline(cin, str[i]);
+    }
+    string res = findLongestPrefix(str);
+    cout << res;
+
+}
+
+

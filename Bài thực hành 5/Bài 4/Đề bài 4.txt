@@ -1,0 +1,5 @@
+Viết chương trình sinh ra tất cả mật khẩu từ một tập các kí tự. Các kí tự trong tập hợp có thể không được dùng lần nào hoặc dùng nhiều lần. Mật khẩu có độ dài tối đa bằng số lượng phần tử trong tập hợp.
+
+Đầu vào: Một xâu kí tự chứa các kí tự của tập hợp.
+
+Đầu ra: Tất cả các xâu có thể từ các kí tự trong tập đã cho. Mỗi xâu trên một dòng.

@@ -1,0 +1,83 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class MyFraction {
+private:
+    int a, b;
+public:
+    MyFraction(int _a = 1, int _b = 1){
+        a = _a;
+        b = _b;
+    }
+
+    void print() const{
+        if(b != 0){
+        MyFraction simplified = *this;
+        simplified.simplify();
+            cout << simplified.a << "/" << simplified.b << endl;
+        }
+        else {
+            cout << "invalid" << endl;
+        }
+    }
+    MyFraction add(const MyFraction& f) const{
+        MyFraction result;
+        result.a = a * f.b + b* f.a;
+        result.b = b * f.b;
+        return result;
+    }
+    MyFraction substract(const MyFraction& f) const{
+        MyFraction result;
+        result.a = a * f.b - b * f.a;
+        result.b = b * f.b;
+        return result;
+    }
+    MyFraction multiply(const MyFraction& f) const{
+        MyFraction result;
+        result.a = a * f.a;
+        result.b = b * f.b;
+        return result;
+    }
+    MyFraction divide(const MyFraction& f) const{
+        MyFraction result;
+        result.a = a * f.b;
+        result.b = b * f.a;
+        return result;
+    }
+    void simplify(){
+        int gcd = getGCD(a, b);
+        a /= gcd;
+        b /= gcd;
+        if( b < 0){
+            a = -a ;
+            b = -b;
+        }
+    }
+    int compare(const MyFraction& f) const{
+        MyFraction test = substract(f);
+        if(test.a > 0){
+            return 1;
+        }
+        else if(test.a < 0){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+
+    }
+private:
+    int getGCD(int x, int y)const {
+        if(y == 0){
+            return x;
+        }
+        if(x % y == 0){
+            return y;
+        }
+        return getGCD(y, x%y);
+    }
+    // int getGCD(int x, int y) const {
+    //     return y == 0 ? x : getGCD(y, x % y);
+    // }
+};

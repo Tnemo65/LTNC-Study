@@ -1,0 +1,19 @@
+using namespace std;
+int* partition(int *start, int *end) {
+    int pivot = *start; // chọn phần tử đầu tiên làm khoá
+    int *left = start + 1; // con trỏ duyệt từ phần tử thứ hai đến cuối mảng
+    int *right = end - 1;
+    while (left <= right) {
+        while (left <= right && *left <= pivot) { // tìm phần tử lớn hơn khoá
+            left++;
+        }
+        while (left <= right && *right > pivot) { // tìm phần tử nhỏ hơn khoá
+            right--;
+        }
+        if (left < right) { // đổi chỗ 2 phần tử nếu tìm được 2 phần tử cần đổi chỗ
+            std::swap(*left, *right);
+        }
+    }
+    swap(*start, *(left - 1)); // đưa khoá về vị trí đúng
+    return left - 1; // trả về vị trí mới của khoá
+}

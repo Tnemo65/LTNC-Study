@@ -1,0 +1,12 @@
+using namespace std;
+vector<string> mergeStringArr(vector<string> arr1, vector<string> arr2)
+{
+    set<string> res1(arr1.begin(), arr1.end());
+    for (auto str : arr2) {
+        if (res1.find(str) != res1.end()) {
+            res1.erase(res1.find(str));
+        }
+    }
+    vector<string> res(res1.begin(), res1.end());
+    return res;
+}

@@ -1,0 +1,27 @@
+#include <iostream>
+#include<iomanip>
+using namespace std;
+
+struct Point{
+    double x;
+    double y;
+    void print(){
+        cout << fixed << setprecision(1) << "(" << x << "," << y << ")" << endl;  
+    }
+
+};
+    Point mid_point(Point const a, Point const b){
+        Point c;
+        c.x = (a.x + b.x)/2;
+        c.y = (a.y + b.y)/2;
+        return c;
+    }
+int main(){
+    Point p1;
+    Point p2;
+    cin >> p1.x >> p1.y >> p2.x >> p2.y;
+    p1.print();
+    p2.print();
+    Point p3 = mid_point(p1,p2);
+    p3.print();
+}
